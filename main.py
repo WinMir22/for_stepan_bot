@@ -5,6 +5,7 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 from config.config import Config, load_config
+from handlers import other_handlers
 
 
 async def main() -> None:
@@ -21,6 +22,7 @@ async def main() -> None:
     dp = Dispatcher()
     # dp.include_router(user_handlers.router)
     # dp.include_router(admin_handlers.router)
+    dp.include_router(other_handlers.router)
     # dp.update.outer_middleware(DBMiddleware())
     await dp.start_polling(bot)
 
