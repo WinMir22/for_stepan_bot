@@ -8,6 +8,7 @@ class DatabaseConfig:
     db_host: str
     db_user: str
     db_password: str
+    db_port: str
 
 
 @dataclass
@@ -38,6 +39,17 @@ def load_config(path: str | None = None) -> Config:
             database=env('DATABASE'),
             db_host=env('DB_HOST'),
             db_user=env('DB_USER'),
-            db_password=env('DB_PASSWORD')
+            db_password=env('DB_PASSWORD'),
+            db_port=env('DB_PORT')
         )
     )
+
+
+def get_url(path: str | None = None) -> str:
+    config = load_config()
+    user = config.db.db_user
+    password = config.db.db_password
+    host = config.db.db_host
+    port = config.db.db_port
+    name = config.db.database
+    return f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{name}"
