@@ -1,10 +1,10 @@
-from aiogram import types
+from aiogram.types import TelegramObject
 from aiogram.filters import BaseFilter
+
+from config.config import load_config
 
 
 class IsDima(BaseFilter):
-    def __init__(self, dima_id: int) -> None:
-        self.dima_id = dima_id
-
-    async def __call__(self, message: types.Message) -> bool:
-        return message.from_user.id in self.dima_id
+    async def __call__(self, obj: TelegramObject) -> bool:
+        config = load_config()
+        return obj.from_user.id in config.tg_bot.dima_id

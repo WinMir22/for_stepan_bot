@@ -1,10 +1,10 @@
-from aiogram import types
+from aiogram.types import TelegramObject
 from aiogram.filters import BaseFilter
+
+from config.config import load_config
 
 
 class IsWinner(BaseFilter):
-    def __init__(self, winner_id: int) -> None:
-        self.winner_id = winner_id
-
-    async def __call__(self, message: types.Message) -> bool:
-        return message.from_user.id in self.winner_id
+    async def __call__(self, obj: TelegramObject) -> bool:
+        config = load_config()
+        return obj.from_user.id in config.tg_bot.winner_id
