@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from config.config import Config, get_url, load_config
 from handlers import other_handlers
-from middlewares import DBSessionMiddleware
+from middlewares.DBSessionMiddleware import DbSessionMiddleware
 
 
 async def main() -> None:
@@ -17,7 +17,6 @@ async def main() -> None:
         "[%(asctime)s] - %(name)s - %(message)s",
     )
     config: Config = load_config()
-
     engine = create_async_engine(get_url())
     sessionmaker = async_sessionmaker(engine)
     bot = Bot(
@@ -28,7 +27,7 @@ async def main() -> None:
     # dp.include_router(user_handlers.router)
     # dp.include_router(admin_handlers.router)
     dp.include_router(other_handlers.router)
-    dp.update.outer_middleware(DBSessionMiddleware(sessionmaker))
+    dp.update.outer_middleware(DbSessionMiddleware(sessionmaker))
     await dp.start_polling(bot)
 
 
