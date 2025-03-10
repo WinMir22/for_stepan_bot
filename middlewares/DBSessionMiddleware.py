@@ -24,7 +24,8 @@ class DbSessionMiddleware(BaseMiddleware):
                 await add_user(
                     check=await check_user(
                         user_id=event.message.from_user.id,
-                        event=event.message, session=session
+                        event=event.message,
+                        session=session
                     ),
                     user_id=event.message.from_user.id,
                     full_name=event.message.from_user.full_name,
