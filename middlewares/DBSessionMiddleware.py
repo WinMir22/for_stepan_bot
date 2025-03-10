@@ -30,6 +30,7 @@ class DbSessionMiddleware(BaseMiddleware):
                     user_id=event.message.from_user.id,
                     full_name=event.message.from_user.full_name,
                     username=event.message.from_user.username,
+                    session=session
                 )
                 data["session"] = session
                 return await handler(event, data)
