@@ -7,7 +7,7 @@ from alembic import context
 
 from config.config import get_url
 from database.models import Base, UsersTable
-
+UsersTable
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
